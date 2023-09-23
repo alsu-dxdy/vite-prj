@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.scss'
@@ -14,11 +14,46 @@ function fillArray(n: number) {
 function App() {
   // const [count, setCount] = useState(0)
   const [cards, setCards] = useState(fillArray(4))
+  const [currentCard, setCurrentCard] = useState(null)
+
+  function dragStartHandler(event: DragEvent<HTMLDivElement>, card): void {
+    console.log('drop', card)
+    setCurrentCard(card)
+  }
+
+  function dragLeaveHandler(e: any): void {
+  }
+
+  function dragEndHandler(e: any): void {
+    e.target.style.background = 'white' // TODO
+  }
+
+  function dragOverHandler(e: SyntheticEvent): void {
+    e.preventDefault()
+    e.target.style.background = 'lightgrey'
+  }
+
+  function dropHandler(e: any, card): void {
+    e.preventDefault()
+    console.log('drop', card)
+    const updatedCards = cards
+  }
 
   return (
     <div className="app">
       {cards.map(card => (
-        <div className="card">
+        <div
+          // we take card
+          onDragStart={(e) => dragStartHandler(e, card)}
+          // we leave limits other card
+          onDragLeave={(e) => dragLeaveHandler(e)}
+          // we leave mooving
+          onDragEnd={(e) => dragEndHandler(e)}
+          onDragOver={(e) => dragOverHandler(e)}
+          onDrop={(e) => dropHandler(e, card)}
+          draggable={true}
+          className="card"
+          key={card.id}>
           {card.text}
         </div>
       ))}
