@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.scss'
 
 function fillArray(n: number) {
@@ -36,12 +36,31 @@ function App() {
   function dropHandler(e: any, card): void {
     e.preventDefault()
     console.log('drop', card)
-    const updatedCards = cards
+    const updatedCards = cards.map(c => {
+      if (c.id === card.id) {
+        return {...c, order: currentCard.order} // card - is card bottom
+      }
+
+      if (c.id === currentCard.id) {
+        return {...c, order: card.order}
+      }
+      return c
+    })
+    setCards(updatedCards)
+    e.target.style.background = 'white'
+  }
+
+  const sortCards = (a, b) => {
+    if (a.order > b.order) {
+      return 1
+    } else {
+      return -1
+    }
   }
 
   return (
     <div className="app">
-      {cards.map(card => (
+      {cards.sort(sortCards).map(card => (
         <div
           // we take card
           onDragStart={(e) => dragStartHandler(e, card)}
@@ -58,28 +77,6 @@ function App() {
         </div>
       ))}
     </div>
-    // <>
-    //   <div>
-    //     <a href="https://vitejs.dev" target="_blank">
-    //       <img src={viteLogo} className="logo" alt="Vite logo" />
-    //     </a>
-    //     <a href="https://react.dev" target="_blank">
-    //       <img src={reactLogo} className="logo react" alt="React logo" />
-    //     </a>
-    //   </div>
-    //   <h1>Vite + React</h1>
-    //   <div className="card">
-    //     <button onClick={() => setCount((count) => count + 1)}>
-    //       count is {count}
-    //     </button>
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to test HMR
-    //     </p>
-    //   </div>
-    //   <p className="read-the-docs">
-    //     Click on the Vite and React logos to learn more
-    //   </p>
-    // </>
   )
 }
 
