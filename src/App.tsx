@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './App.scss'
 
 function fillArray(n: number) {
   const arr = []
@@ -10,13 +10,6 @@ function fillArray(n: number) {
   }
   return arr
 }
-
-// const arr = [
-//   { id: 1, order: 3, text: 'card 3' },
-//   { id: 2, order: 3, text: 'card 3' },
-//   { id: 3, order: 3, text: 'card 3' },
-//   { id: 4, order: 3, text: 'card 3' },
-// ]
 
 function App() {
   // const [count, setCount] = useState(0)
