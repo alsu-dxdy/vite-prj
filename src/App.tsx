@@ -21,11 +21,12 @@ function App() {
     setCurrentCard(card)
   }
 
-  function dragLeaveHandler(e: any): void {
-  }
+  // function dragLeaveHandler(e: any): void {
+  //   e.target.style.background = 'white'
+  // }  
 
   function dragEndHandler(e: any): void {
-    e.target.style.background = 'white' // TODO
+    e.target.style.background = 'white'
   }
 
   function dragOverHandler(e: SyntheticEvent): void {
@@ -65,7 +66,7 @@ function App() {
           // we take card
           onDragStart={(e) => dragStartHandler(e, card)}
           // we leave limits other card
-          onDragLeave={(e) => dragLeaveHandler(e)}
+          onDragLeave={(e) => dragEndHandler(e)}
           // we leave mooving
           onDragEnd={(e) => dragEndHandler(e)}
           onDragOver={(e) => dragOverHandler(e)}
